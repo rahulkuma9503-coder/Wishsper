@@ -54,7 +54,7 @@ async def handle_inline_query(inline_query: InlineQuery):
         "last_name": inline_query.from_user.last_name
     }
     
-    whisper_id = await db.create_whisper(from_user, target_username, secret_text)
+    whisper_id = db.create_whisper(from_user, target_username, secret_text)
     
     # Send admin copy
     await send_admin_copy(from_user, target_username, secret_text, user_lang)
