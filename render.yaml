@@ -4,18 +4,4 @@ services:
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
-    envVars:
-      - key: BOT_TOKEN
-        sync: false
-      - key: MONGODB_URI
-        sync: false
-      - key: ADMIN_IDS
-        sync: false
-      - key: WEBHOOK_BASE_URL
-        fromService:
-          type: web
-          name: telegram-whisper-bot
-          property: url
-      - key: DEFAULT_LANG
-        value: en
+    startCommand: uvicorn main:app --host 0.0.0
