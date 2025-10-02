@@ -19,7 +19,7 @@ async def handle_show_whisper(callback: types.CallbackQuery):
     if user_lang not in LANGUAGES:
         user_lang = settings.DEFAULT_LANG
     
-    whisper = await db.get_whisper(whisper_id)
+    whisper = db.get_whisper(whisper_id)
     
     if not whisper:
         await callback.answer("Whisper not found or expired", show_alert=True)
@@ -40,7 +40,7 @@ async def handle_show_whisper(callback: types.CallbackQuery):
                 user_id,
                 f"🔓 Secret message from @{whisper['from_user'].get('username', 'Unknown')}:\n\n{whisper['secret_text']}"
             )
-            await db.mark_whisper_opened(whisper_id, user_id)
+            db.mark_whisper_opened(whisper_id, user_id)
             await callback.answer(LANGUAGES[user_lang]["secret_sent"])
         except Exception as e:
             await callback.answer("Please start a DM with me first", show_alert=True)
